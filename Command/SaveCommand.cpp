@@ -9,14 +9,11 @@
 
 const std::string SaveCommand::COMMAND_NAME = "save";
 
-
 SaveCommand::SaveCommand (std::vector<std::string> args)
-        : command_alias (COMMAND_NAME), m_args (args)
-{}
+        : command_alias (COMMAND_NAME), m_args (args) {}
 
 
-SaveCommand::~SaveCommand ()
-{}
+SaveCommand::~SaveCommand () {}
 
 
 std::string SaveCommand::execute ()
@@ -31,3 +28,4 @@ std::string SaveCommand::execute ()
 
     return "Excuting SaveCommand...";
 }
+

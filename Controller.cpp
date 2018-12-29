@@ -17,16 +17,15 @@ Controller::Controller (const std::shared_ptr<Remote> remote,
     m_remote = remote;
     m_ui = ui;
     m_parser = parser;
-
 }
 
 
-Controller::~Controller ()
-{}
+Controller::~Controller () {}
 
 
 void Controller::start ()
 {
+    // TODO: Split code into smaller responisbilities
     std::string line;
     std::string response;
     std::string commandName;
@@ -45,7 +44,7 @@ void Controller::start ()
             {
                 try
                 {
-                    commandName = parsed.front();
+                    commandName = parsed.front ();
                     parsed.erase (parsed.begin ());
                     std::unique_ptr<Command> responseCmd =
                             m_remote->request (commandName,
@@ -60,8 +59,6 @@ void Controller::start ()
                 }
             }
         }
-
     } while (true);
-
     return;
 }

@@ -13,13 +13,14 @@ class Command
 {
 public:
 
-    Command() {};
-    Command (std::vector<std::string> args) : m_args(args) {};
+    Command () {};
+    Command (std::vector<std::string> args) : m_args (args) {};
     virtual ~Command () {};
 
     virtual std::string execute () = 0;
 
-    virtual void setAlias (const std::string& alias) const;
+    virtual void setAlias (const std::string &alias) const;
+
     virtual std::string getAlias ();
 
 private:
@@ -29,7 +30,8 @@ private:
     mutable std::string command_alias;
 };
 
-inline void Command::setAlias (const std::string& alias) const
+
+inline void Command::setAlias (const std::string &alias) const
 {
     command_alias = alias;
 }

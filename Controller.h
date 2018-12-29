@@ -10,7 +10,6 @@
 #include "CommandParser.h"
 
 
-
 class Controller
 {
 public:
@@ -22,11 +21,11 @@ public:
     void start();
 
 
-
 private:
     std::shared_ptr<Remote> m_remote;
     std::shared_ptr<UI> m_ui;
     std::shared_ptr<CommandParser> m_parser;
 };
+
 
 #endif //DNA_ANALYZER_CONTROLLER_H

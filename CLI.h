@@ -13,6 +13,7 @@
 class CLI : public UI
 {
 public:
+
     CLI ();
     ~CLI ();
 
@@ -21,14 +22,12 @@ public:
     std::string prompt();
 
 private:
+
     static const char EXIT_MESSAGE[];
     static const char PROMPT[];
     static const char EXIT_COMMAND[];
-
     static const std::string cyan;
 };
-
-
 
 
 #endif //DNA_ANALYZER_CLI_H

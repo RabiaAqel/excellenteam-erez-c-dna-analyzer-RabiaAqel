@@ -9,11 +9,11 @@
 class FileReader
 {
 public:
+
     FileReader();
     ~FileReader ();
 
     char* readFile(char* fileName);
-
 
 };
 

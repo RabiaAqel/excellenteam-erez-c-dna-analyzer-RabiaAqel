@@ -15,17 +15,13 @@
 class Remote
 {
 public:
-    Remote () {} ;
+    Remote () {};
     virtual ~Remote () {};
 
     virtual void boot () = 0;
 
     virtual std::unique_ptr<Command> request (const std::string &command,
-            std::vector<std::string> args) = 0;
-
-//privat
-// e:
-//    std::map<std::string, std::unique_ptr<Command> > Commands;
+                                              std::vector<std::string> args) = 0;
 };
 
 

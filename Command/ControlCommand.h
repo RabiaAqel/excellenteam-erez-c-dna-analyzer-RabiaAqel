@@ -13,11 +13,9 @@ class ControlCommand : public Command
 public:
 
     virtual ControlCommand () = 0;
-
     virtual ~ControlCommand () = 0;
 
     virtual execute () = 0;
-
 
 };
 

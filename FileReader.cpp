@@ -10,20 +10,14 @@
 #include "FileReader.h"
 
 
-FileReader::FileReader ()
-{
+FileReader::FileReader () {}
 
-}
 
-FileReader::~FileReader ()
-{
-
-}
+FileReader::~FileReader () {}
 
 
 char *FileReader::readFile (char *fileName)
 {
-
     char source[MAXBUFLEN + 1];
     FILE *fp = fopen (fileName, "r");
     if (fp != NULL)
@@ -32,16 +26,17 @@ char *FileReader::readFile (char *fileName)
         if (newLen == 0)
         {
             fputs ("Error reading file", stderr);
-        } else
+        }
+        else
         {
             source[newLen] = '\0';
         }
 
         fclose (fp);
     }
-
     return source;
-
 }
+
+
 
 

@@ -12,11 +12,9 @@ class CreationCommand : public Command
 public:
 
     CreationCommand () {};
-    CreationCommand (std::string args)
-    {};
+    CreationCommand (std::string args) {};
 
-    virtual ~CreationCommand ()
-    {};
+    virtual ~CreationCommand () {};
 
     virtual std::string execute () = 0;
 };

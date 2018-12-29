@@ -10,12 +10,10 @@ const char CLI::EXIT_COMMAND[] = "exit";
 const char CLI::PROMPT[] = "\033[0;36mDNA Analyzer> \033[0m";
 
 
-CLI::CLI ()
-{}
+CLI::CLI () {}
 
 
-CLI::~CLI ()
-{}
+CLI::~CLI () {}
 
 
 void CLI::render (std::string out)

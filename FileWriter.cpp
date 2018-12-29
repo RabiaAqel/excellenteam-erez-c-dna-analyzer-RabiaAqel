@@ -6,12 +6,10 @@
 #include <cstdio>
 
 
-FileWriter::FileWriter ()
-{}
+FileWriter::FileWriter () {}
 
 
-FileWriter::~FileWriter ()
-{}
+FileWriter::~FileWriter () {}
 
 
 void FileWriter::writeFile (char *fileName, char data[])

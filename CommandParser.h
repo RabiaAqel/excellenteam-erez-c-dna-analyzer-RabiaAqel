@@ -10,8 +10,8 @@
 class CommandParser
 {
 public:
-    CommandParser ();
 
+    CommandParser ();
     ~CommandParser ();
 
     std::vector<std::string> parse (const std::string &input);

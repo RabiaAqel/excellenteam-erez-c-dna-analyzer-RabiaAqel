@@ -6,14 +6,10 @@
 #include <boost/algorithm/string.hpp>
 
 
-CommandParser::CommandParser ()
-{
-
-}
+CommandParser::CommandParser () {}
 
 
-CommandParser::~CommandParser ()
-{}
+CommandParser::~CommandParser () {}
 
 
 std::vector<std::string> CommandParser::parse (const std::string &input)

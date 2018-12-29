@@ -10,27 +10,22 @@
 #include "Command/LoadCommand.h"
 
 
-CommandRemote::CommandRemote ()
-{}
+CommandRemote::CommandRemote () {}
 
 
-CommandRemote::~CommandRemote ()
-{}
+CommandRemote::~CommandRemote () {}
 
 
-void CommandRemote::boot ()
-{}
+void CommandRemote::boot () {}
 
 
 std::unique_ptr<Command> CommandRemote::request (const std::string &command_name,
                                                  std::vector<std::string> args)
 {
-
     std::string SAVE = "save";
     std::string LOAD = "load";
 
     std::string response;
-
 
     if (command_name == SAVE)
         return std::unique_ptr<Command> (new SaveCommand (args));
@@ -38,5 +33,4 @@ std::unique_ptr<Command> CommandRemote::request (const std::string &command_name
         return std::unique_ptr<Command> (new LoadCommand (args));
     else
         throw InvalidCommandException ();
-
 }

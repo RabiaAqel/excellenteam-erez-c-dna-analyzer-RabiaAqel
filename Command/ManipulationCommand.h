@@ -12,11 +12,9 @@ class ManipulationCommand : public Command
 public:
 
     ManipulationCommand(std::vector<std::string> args) {};
-
     virtual ~ManipulationCommand () {};
 
     virtual std::string execute () = 0;
-
 
 };
 
