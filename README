@@ -1,0 +1,3 @@
+To compile:
+
+g++ main.cpp CLI.cpp Command/SaveCommand.cpp Command/LoadCommand.cpp CommandRemote.cpp  CommandParser.cpp FileReader.cpp Exceptions/InvalidCommandException.cpp  Controller.cpp  FileWriter.cpp -o main
