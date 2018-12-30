@@ -5,7 +5,7 @@
 #ifndef DNA_ANALYZER_CREATIONCOMMAND_H
 #define DNA_ANALYZER_CREATIONCOMMAND_H
 
-#include "Command.h"
+#include "../Command.h"
 
 class CreationCommand : public Command
 {
@@ -16,7 +16,7 @@ public:
 
     virtual ~CreationCommand () {};
 
-    virtual std::string execute () = 0;
+    virtual std::string execute (std::shared_ptr<DnaContainer> container) = 0;
 };
 
 

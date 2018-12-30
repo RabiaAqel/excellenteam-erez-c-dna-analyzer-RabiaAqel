@@ -11,7 +11,7 @@ class InvalidCommandException: public std::exception
 {
     virtual const char* what() const throw()
     {
-        return "DNA-Analyzer: Command not found";
+        return "DNA Analyzer: Command not found";
     }
 };
 

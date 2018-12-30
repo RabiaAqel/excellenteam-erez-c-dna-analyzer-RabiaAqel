@@ -1,3 +1,8 @@
-To compile:
+To Compile:
 
-g++ main.cpp CLI.cpp Command/SaveCommand.cpp Command/LoadCommand.cpp CommandRemote.cpp  CommandParser.cpp FileReader.cpp Exceptions/InvalidCommandException.cpp  Controller.cpp  FileWriter.cpp -o main
+ g++ Command/Control/ListCommand.cpp Command/CreationCommand/LoadCommand.cpp
+  Command/Management/SaveCommand.cpp Command/Manipulation/PairCommand.cpp
+   Controller/CommandParser.cpp Controller/CommandRemote.cpp Controller/Controller.cpp
+    Exceptions/InvalidCommandException.cpp FileIO/FileReader.cpp FileIO/FileWriter.cpp
+     Model/DnaSequence/DnaSequence.cpp Model/DnaContainer.cpp View/CLI.cpp main.cpp -o main
+

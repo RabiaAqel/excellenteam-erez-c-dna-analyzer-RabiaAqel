@@ -5,17 +5,19 @@
 #ifndef DNA_ANALYZER_CONTROLCOMMAND_H
 #define DNA_ANALYZER_CONTROLCOMMAND_H
 
+#include <string>
 
-#include "Command.h"
+#include "../Command.h"
+
 
 class ControlCommand : public Command
 {
 public:
 
-    virtual ControlCommand () = 0;
-    virtual ~ControlCommand () = 0;
+    ControlCommand () {};
+    virtual ~ControlCommand () {};
 
-    virtual execute () = 0;
+    virtual std::string execute (std::shared_ptr<DnaContainer> container) = 0;
 
 };
 

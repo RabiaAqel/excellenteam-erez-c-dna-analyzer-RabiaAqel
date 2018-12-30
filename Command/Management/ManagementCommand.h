@@ -5,7 +5,7 @@
 #ifndef DNA_ANALYZER_MANAGEMENTCOMMAND_H
 #define DNA_ANALYZER_MANAGEMENTCOMMAND_H
 
-#include "Command.h"
+#include "../Command.h"
 
 class ManagementCommand : public Command
 {
@@ -17,7 +17,7 @@ public:
     virtual ~ManagementCommand ()
     {};
 
-    virtual std::string execute () = 0;
+    virtual std::string execute (std::shared_ptr<DnaContainer> container) = 0;
 };
 
 

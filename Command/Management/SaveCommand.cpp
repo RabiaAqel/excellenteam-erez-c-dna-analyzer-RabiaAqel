@@ -3,7 +3,7 @@
 //
 
 #include "SaveCommand.h"
-#include "../FileWriter.h"
+#include "../../FileIO/FileWriter.h"
 #include <iostream>
 
 
@@ -16,7 +16,7 @@ SaveCommand::SaveCommand (std::vector<std::string> args)
 SaveCommand::~SaveCommand () {}
 
 
-std::string SaveCommand::execute ()
+std::string SaveCommand::execute (std::shared_ptr<DnaContainer> container)
 {
     FileWriter fileWriter = FileWriter ();
 

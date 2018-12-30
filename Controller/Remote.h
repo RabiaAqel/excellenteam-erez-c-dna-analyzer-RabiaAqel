@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "Command/Command.h"
+#include "../Command/Command.h"
 
 
 class Remote

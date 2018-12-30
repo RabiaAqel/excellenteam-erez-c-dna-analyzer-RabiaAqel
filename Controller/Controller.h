@@ -6,8 +6,9 @@
 #define DNA_ANALYZER_CONTROLLER_H
 
 #include "Remote.h"
-#include "UI.h"
+#include "../View/UI.h"
 #include "CommandParser.h"
+#include "../Model/DnaContainer.h"
 
 
 class Controller
@@ -25,6 +26,7 @@ private:
     std::shared_ptr<Remote> m_remote;
     std::shared_ptr<UI> m_ui;
     std::shared_ptr<CommandParser> m_parser;
+    std::shared_ptr<DnaContainer> m_container;
 };
 
 

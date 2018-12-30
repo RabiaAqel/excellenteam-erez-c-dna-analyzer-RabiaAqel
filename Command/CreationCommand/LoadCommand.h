@@ -18,12 +18,13 @@ public:
     LoadCommand (std::vector<std::string> args);
     ~LoadCommand ();
 
-    std::string execute ();
+    std::string execute (std::shared_ptr<DnaContainer> container);
 
 private:
 
     std::vector<std::string> m_args;
     static const std::string COMMAND_NAME;
+    static const std::string ARGS_FORMAT;
     mutable std::string command_alias;
 };
 

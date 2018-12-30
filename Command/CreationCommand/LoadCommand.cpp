@@ -6,22 +6,25 @@
 #include <string>
 
 #include "LoadCommand.h"
-#include "../FileReader.h"
+#include "../../FileIO/FileReader.h"
 
 // TODO: Get rid of define!!!!
 #define MAXBUFLEN 1000000
 
 const std::string LoadCommand::COMMAND_NAME = "load";
+const std::string LoadCommand::ARGS_FORMAT = "^([\\s]*([A-Za-z0-9-_]+\\.rawdna)[\\s]*(@([A-Za-z0-9-_]+))?)$";
 
 
 LoadCommand::LoadCommand (std::vector<std::string> args)
-        : command_alias (COMMAND_NAME), m_args (args) {}
+        : command_alias (COMMAND_NAME), m_args (args)
+{}
 
 
-LoadCommand::~LoadCommand () {}
+LoadCommand::~LoadCommand ()
+{}
 
 
-std::string LoadCommand::execute ()
+std::string LoadCommand::execute (std::shared_ptr<DnaContainer> container)
 {
     // TODO: Deal with memory leak at line 36!!!
     FileReader fileReader;
@@ -32,7 +35,11 @@ std::string LoadCommand::execute ()
 
     data = strcpy (data, fileReader.readFile (const_cast<char *>(fileName.c_str ())));
 
-    return data;
+    container->insert (std::shared_ptr<DnaSequence> (new DnaSequence (data)));
+
+    free(data);
+
+    return "success";
 }
 
 

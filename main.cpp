@@ -1,14 +1,16 @@
 #include <iostream>
 
 
-#include "CLI.h"
-#include "CommandParser.h"
-#include "CommandRemote.h"
-#include "Controller.h"
+#include "View/CLI.h"
+#include "Controller/CommandParser.h"
+#include "Controller/CommandRemote.h"
+#include "Controller/Controller.h"
+
 
 
 int main ()
 {
+
     // Remote for supported commands
     std::shared_ptr<Remote> remote (new CommandRemote ());
 

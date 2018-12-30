@@ -16,7 +16,7 @@ public:
     SaveCommand (std::vector<std::string> args);
     ~SaveCommand ();
 
-    std::string execute ();
+    std::string execute (std::shared_ptr<DnaContainer> container);
 
 private:
     std::vector<std::string> m_args;
