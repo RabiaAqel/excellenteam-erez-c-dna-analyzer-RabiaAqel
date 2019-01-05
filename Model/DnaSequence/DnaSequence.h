@@ -10,45 +10,49 @@
 
 #include "Nucleotide.h"
 
-class DnaSequence {
+class DnaSequence
+{
 
 public:
 
-    explicit DnaSequence(const char* sequence);
-    explicit DnaSequence(const std::string& sequence);
-    DnaSequence(const DnaSequence& other);
+    explicit DnaSequence (const char *sequence);
+    explicit DnaSequence (const std::string &sequence);
+    DnaSequence (const DnaSequence &other);
     ~DnaSequence ();
 
-    DnaSequence& operator=(const char* const sequence);
-    DnaSequence& operator=(const std::string& sequence);
-    DnaSequence& operator=(const DnaSequence& other);
+    DnaSequence &operator= (const char *const sequence);
+    DnaSequence &operator= (const std::string &sequence);
+    DnaSequence &operator= (const DnaSequence &other);
 
-    friend std::ostream& operator<< (std::ostream &os, const DnaSequence &dna);
+    friend std::ostream &operator<< (std::ostream &os, const DnaSequence &dna);
 
-    bool operator== (const DnaSequence& other);
-    bool operator!= (const DnaSequence& other);
+    bool operator== (const DnaSequence &other);
+
+    bool operator!= (const DnaSequence &other);
 
     const Nucleotide operator[] (int index) const; // const should not return ref
-    Nucleotide& operator[] (int index); // not const should return ref to change - (const char doesnt make sense)
+    Nucleotide &operator[] (int index); // not const should return ref to change - (const char doesnt make sense)
 
+    const std::string toString () const;
 
-    size_t getLength() const;
+    size_t getLength () const;
 
-    size_t slice(Nucleotide* slice, size_t from, size_t to);
+    size_t slice (Nucleotide *slice, size_t from, size_t to);
 
-    DnaSequence& paired() const;
+    DnaSequence &paired () const;
 
-    long find(const std::string& sub, size_t from);
+    long find (const std::string &sub, size_t from);
 
 private:
 
     mutable size_t m_length;
-    Nucleotide* m_sequence;
+    Nucleotide *m_sequence;
 
     void copySequenceFromChars
-    (const char* sequence, size_t len);
+            (const char *sequence, size_t len);
+
     void copySequenceFromNucleotides
-    (const Nucleotide* sequence, size_t len);
+            (const Nucleotide *sequence, size_t len);
 
 };
 
@@ -64,9 +68,9 @@ inline bool DnaSequence::operator!= (const DnaSequence &other)
 }
 
 
-inline Nucleotide& DnaSequence::operator[] (int index)
+inline Nucleotide &DnaSequence::operator[] (int index)
 {
-   return m_sequence[index];
+    return m_sequence[index];
 }
 
 
@@ -86,13 +90,11 @@ inline size_t DnaSequence::getLength () const
 }
 
 
-
-inline DnaSequence& DnaSequence::operator=(const std::string& sequence)
+inline DnaSequence &DnaSequence::operator= (const std::string &sequence)
 {
-    *this = sequence.c_str();
+    *this = sequence.c_str ();
     return *this;
 }
-
 
 
 #endif //DNA_TASK_DNASEQUENCE_H

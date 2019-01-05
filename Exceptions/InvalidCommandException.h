@@ -7,14 +7,13 @@
 
 #include <exception>
 
-class InvalidCommandException: public std::exception
+class InvalidCommandException : public std::exception
 {
-    virtual const char* what() const throw()
+    virtual const char *what () const throw ()
     {
         return "DNA Analyzer: Command not found";
     }
 };
-
 
 
 #endif //DNA_ANALYZER_INVALIDCOMMANDEXCEPTION_H

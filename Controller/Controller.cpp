@@ -17,7 +17,7 @@ Controller::Controller (const std::shared_ptr<Remote> remote,
     m_remote = remote;
     m_ui = ui;
     m_parser = parser;
-    m_container = std::shared_ptr<DnaContainer>(new DnaContainer);
+    m_container = std::shared_ptr<DnaContainer> (new DnaContainer);
 
 }
 
@@ -39,10 +39,10 @@ void Controller::start ()
         std::vector<std::string> parsed = m_parser->parse (line);
 
 
-        if (!line.empty ())
+        if ( !line.empty ())
         {
 
-            if (line.find ("exit") != -1)
+            if ( line.find ("exit") != -1 )
                 break;
             else
             {
@@ -57,18 +57,25 @@ void Controller::start ()
                     std::unique_ptr<Command> responseCmd =
                             m_remote->request (commandName, parsed);
 
-                    response = responseCmd->execute (m_container);
+                    responseCmd->execute (m_container);
+                    response = responseCmd->getResponse ();
 
 
                     m_ui->render (response);
                 }
-                catch (std::exception &e)
+                catch ( std::exception &e )
                 {
                     response = e.what ();
                     m_ui->renderError (response);
                 }
             }
         }
-    } while (true);
+    } while ( true );
     return;
+}
+
+
+void Controller::help ()
+{
+
 }

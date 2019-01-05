@@ -12,19 +12,24 @@
 #define MAXBUFLEN 1000000
 
 const std::string LoadCommand::COMMAND_NAME = "load";
-const std::string LoadCommand::ARGS_FORMAT = "^([\\s]*([A-Za-z0-9-_]+\\.rawdna)[\\s]*(@([A-Za-z0-9-_]+))?)$";
 
 
 LoadCommand::LoadCommand (std::vector<std::string> args)
         : command_alias (COMMAND_NAME), m_args (args)
-{}
+{
+    size_t args_count = m_args.size ();
+
+    if ( args_count > MAX_ARGS )
+        throw TooManyArgumentsException ();
+    if ( args_count < MIN_ARGS )
+        throw TooFewArgumentsException ();
+}
 
 
-LoadCommand::~LoadCommand ()
-{}
+LoadCommand::~LoadCommand () {}
 
 
-std::string LoadCommand::execute (std::shared_ptr<DnaContainer> container)
+void LoadCommand::execute (std::shared_ptr<DnaContainer> container)
 {
     // TODO: Deal with memory leak at line 36!!!
     FileReader fileReader;
@@ -35,11 +40,29 @@ std::string LoadCommand::execute (std::shared_ptr<DnaContainer> container)
 
     data = strcpy (data, fileReader.readFile (const_cast<char *>(fileName.c_str ())));
 
-    container->insert (std::shared_ptr<DnaSequence> (new DnaSequence (data)));
+    std::string sequenceName (m_args[1]);
 
-    free(data);
+    if ( m_args.size () == MAX_ARGS )
+        container->insert (sequenceName.erase (0, 1), data);
+    else
+        container->insert (data);
 
-    return "success";
+    if ( strlen (data) > 40 )
+    {
+        std::string viewStr (data);
+        m_response = viewStr.substr (0, 37) + "..." + viewStr.substr (viewStr.length () - 3, viewStr.length () - 1);
+    }
+    else
+    {
+        m_response = data;
+    }
+
+    free (data);
 }
 
+
+const std::string &LoadCommand::getResponse () const
+{
+    return m_response;
+}
 

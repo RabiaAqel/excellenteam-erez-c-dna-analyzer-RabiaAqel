@@ -10,10 +10,10 @@ class FileReader
 {
 public:
 
-    FileReader();
+    FileReader ();
     ~FileReader ();
 
-    char* readFile(char* fileName);
+    char *readFile (char *fileName);
 
 };
 

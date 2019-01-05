@@ -20,10 +20,10 @@ char *FileReader::readFile (char *fileName)
 {
     char source[MAXBUFLEN + 1];
     FILE *fp = fopen (fileName, "r");
-    if (fp != NULL)
+    if ( fp != NULL )
     {
         size_t newLen = fread (source, sizeof (char), MAXBUFLEN, fp);
-        if (newLen == 0)
+        if ( newLen == 0 )
         {
             fputs ("Error reading file", stderr);
         }

@@ -10,22 +10,58 @@
 const std::string SaveCommand::COMMAND_NAME = "save";
 
 SaveCommand::SaveCommand (std::vector<std::string> args)
-        : command_alias (COMMAND_NAME), m_args (args) {}
+        : command_alias (COMMAND_NAME), m_args (args)
+{
+    size_t args_count = m_args.size ();
+
+    if ( args_count > MAX_ARGS )
+        throw TooManyArgumentsException ();
+    if ( args_count < MIN_ARGS )
+        throw TooFewArgumentsException ();
+}
 
 
 SaveCommand::~SaveCommand () {}
 
 
-std::string SaveCommand::execute (std::shared_ptr<DnaContainer> container)
+void SaveCommand::execute (std::shared_ptr<DnaContainer> container)
 {
     FileWriter fileWriter = FileWriter ();
 
-    std::string fileName = m_args[1];
-    std::string fileContent = m_args[0];
+    std::string sequenceName (m_args[0]);
+    std::cout << container->getSequenceString (sequenceName).c_str () << std::endl;
 
-    fileWriter.writeFile (const_cast<char *>(fileName.c_str ()),
-                          const_cast<char *>(fileContent.c_str ()));
+    try
+    {
 
-    return "Excuting SaveCommand...";
+        if ( m_args.size () == MAX_ARGS )
+        {
+            fileWriter.writeFile (const_cast<char *>(sequenceName.c_str ()),
+                                  const_cast<char *>(container->getSequenceString (sequenceName).c_str ()));
+        }
+        else
+        {
+            fileWriter.writeFile (const_cast<char *>(generateName ().c_str ()),
+                                  const_cast<char *>(container->getSequenceString (sequenceName).c_str ()));
+        }
+
+    }
+    catch ( SequenceDoesntExist &e )
+    {
+        throw e;
+    }
+
+    m_response = "Excuting SaveCommand...";
+}
+
+
+const std::string SaveCommand::generateName ()
+{
+    m_response = m_args[0] + ".rawdna";
+}
+
+const std::string &SaveCommand::getResponse () const
+{
+    return m_response;
 }
 

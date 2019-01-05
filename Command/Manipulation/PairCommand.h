@@ -17,7 +17,10 @@ public:
     PairCommand (std::vector<std::string> args);
     ~PairCommand ();
 
-    std::string execute (std::shared_ptr<DnaContainer> container);
+    void execute (std::shared_ptr<DnaContainer> container);
+
+    const std::string &getResponse () const;
+
 
 private:
 
@@ -25,6 +28,7 @@ private:
     static const std::string COMMAND_NAME;
     static const std::string ARGS_FORMAT;
     mutable std::string command_alias;
+    std::string m_response;
 };
 
 

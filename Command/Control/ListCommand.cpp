@@ -9,23 +9,25 @@
 
 
 const std::string ListCommand::COMMAND_NAME = "list";
+const std::string ListCommand::HELP = "list";
 
 
 ListCommand::ListCommand (std::vector<std::string> args)
-        : command_alias (COMMAND_NAME), m_args (args)
-{}
+        : command_alias (COMMAND_NAME), m_args (args) {}
 
 
-ListCommand::~ListCommand ()
-{}
+ListCommand::~ListCommand () {}
 
-
-std::string ListCommand::execute (std::shared_ptr<DnaContainer> container)
+void ListCommand::execute (std::shared_ptr<DnaContainer> container)
 {
     std::string list = container->getList ();
 
-    return (list == "") ? "DNA Analyzer: No active sequences" : list;
+    m_response = (list == "") ? "DNA Analyzer: No active sequences" : list;
+}
 
+const std::string &ListCommand::getResponse () const
+{
+    return m_response;
 }
 
 

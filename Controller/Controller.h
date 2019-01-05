@@ -14,12 +14,14 @@
 class Controller
 {
 public:
-    Controller(const std::shared_ptr<Remote> remote,
-            const std::shared_ptr<UI> ui,
-            const std::shared_ptr<CommandParser> parser);
+    Controller (const std::shared_ptr<Remote> remote,
+                const std::shared_ptr<UI> ui,
+                const std::shared_ptr<CommandParser> parser);
     ~Controller ();
 
-    void start();
+    void start ();
+
+    void help ();
 
 
 private:
@@ -27,6 +29,8 @@ private:
     std::shared_ptr<UI> m_ui;
     std::shared_ptr<CommandParser> m_parser;
     std::shared_ptr<DnaContainer> m_container;
+    static const std::string EXIT;
+    static const std::string HELP;
 };
 
 

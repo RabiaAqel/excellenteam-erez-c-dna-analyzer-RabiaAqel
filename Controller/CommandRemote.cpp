@@ -10,6 +10,7 @@
 #include "../Command/CreationCommand/LoadCommand.h"
 #include "../Command/Control/ListCommand.h"
 #include "../Command/Manipulation/PairCommand.h"
+#include "../Command/CreationCommand/NewCommand.h"
 
 
 CommandRemote::CommandRemote () {}
@@ -28,17 +29,20 @@ std::unique_ptr<Command> CommandRemote::request (const std::string &command_name
     std::string LOAD = "load";
     std::string LIST = "list";
     std::string PAIR = "pair";
+    std::string NEW = "new";
 
     std::string response;
 
-    if (command_name == SAVE)
+    if ( command_name == SAVE )
         return std::unique_ptr<Command> (new SaveCommand (args));
-    else if (command_name == LOAD)
+    else if ( command_name == LOAD )
         return std::unique_ptr<Command> (new LoadCommand (args));
-    else if  (command_name == LIST)
-        return std::unique_ptr<Command> (new ListCommand(args));
-    else if  (command_name == PAIR)
-        return std::unique_ptr<Command> (new PairCommand(args));
+    else if ( command_name == LIST )
+        return std::unique_ptr<Command> (new ListCommand (args));
+    else if ( command_name == PAIR )
+        return std::unique_ptr<Command> (new PairCommand (args));
+    else if ( command_name == NEW )
+        return std::unique_ptr<Command> (new NewCommand (args));
     else
         throw InvalidCommandException ();
 }

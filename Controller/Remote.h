@@ -15,6 +15,7 @@
 class Remote
 {
 public:
+
     Remote () {};
     virtual ~Remote () {};
 

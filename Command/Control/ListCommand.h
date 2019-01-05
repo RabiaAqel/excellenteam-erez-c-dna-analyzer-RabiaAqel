@@ -17,14 +17,19 @@ public:
     ListCommand (std::vector<std::string> args);
     ~ListCommand ();
 
-    std::string execute (std::shared_ptr<DnaContainer> container);
+    void execute (std::shared_ptr<DnaContainer> container);
+
+    const std::string &getResponse () const;
 
 private:
 
     std::vector<std::string> m_args;
     static const std::string COMMAND_NAME;
     static const std::string ARGS_FORMAT;
+    static const std::string HELP;
     mutable std::string command_alias;
+    std::string m_response;
+
 };
 
 

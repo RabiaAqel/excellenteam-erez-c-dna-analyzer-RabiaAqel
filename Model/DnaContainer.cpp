@@ -10,18 +10,20 @@ DnaContainer::DnaContainer ()
 
 bool DnaContainer::
 insert (std::string sequenceName,
-        std::shared_ptr<DnaSequence> data)
+        const std::string& data)
 {
-    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (sequenceName, data));
-    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), data));
+    std::shared_ptr<DnaSequence> dnaSequence(new DnaSequence(data));
+    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (sequenceName, dnaSequence));
+    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), dnaSequence));
 }
 
 
 bool DnaContainer::
-insert (std::shared_ptr<DnaSequence> data)
+insert (const std::string& data)
 {
-    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (generateName (), data));
-    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), data));
+    std::shared_ptr<DnaSequence> dnaSequence(new DnaSequence(data));
+    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (generateName (), dnaSequence));
+    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), dnaSequence));
 }
 
 
@@ -70,4 +72,21 @@ std::string DnaContainer::getList () const
     }
 
     return list;
+}
+
+
+bool DnaContainer::exists(const std::string& sequenceName) const
+{
+    return m_nameMap.find(sequenceName) != m_nameMap.end();
+}
+
+
+const std::string DnaContainer::getSequenceString(const std::string& sequenceName) const
+{
+
+    if (!exists (sequenceName))
+        throw SequenceDoesntExist();
+    else
+        return (m_nameMap.find(sequenceName)->second)->toString ();
+
 }
