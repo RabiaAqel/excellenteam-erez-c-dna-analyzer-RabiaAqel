@@ -2,21 +2,21 @@
 // Created by Rabia on 30/12/2018.
 //
 
-#ifndef DNA_ANALYZER_PAIRCOMMAND_H
-#define DNA_ANALYZER_PAIRCOMMAND_H
+#ifndef DNA_ANALYZER_List_H
+#define DNA_ANALYZER_List_H
 
-#include <string>
 #include <vector>
+#include <string>
 
-#include "ManipulationCommand.h"
+#include "../Command.h"
 
-class PairCommand : public ManipulationCommand
+class List : public Command
 {
 public:
 
-    PairCommand(std::vector<std::string> args);
+    List(std::vector<std::string> args);
 
-    ~PairCommand();
+    ~List();
 
     void execute(std::shared_ptr<DnaContainer> container);
 
@@ -30,24 +30,23 @@ private:
 
     std::vector<std::string> m_args;
     static const std::string COMMAND_ALIAS;
-    static const std::string HELP;
     static const std::string ARGS_FORMAT;
-    static const int MAX_ARGS = 2;
-    static const int MIN_ARGS = 1;
+    static const std::string HELP;
     std::string m_response;
+
 };
 
 
-inline const std::string &PairCommand::getAlias()
+inline const std::string &List::getAlias()
 {
     return COMMAND_ALIAS;
 }
 
 
-inline const std::string &PairCommand::help()
+inline const std::string &List::help()
 {
     return HELP;
 }
 
 
-#endif //DNA_ANALYZER_PAIRCOMMAND_H
+#endif //DNA_ANALYZER_List_H

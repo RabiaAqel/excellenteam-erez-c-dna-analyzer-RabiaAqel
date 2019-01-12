@@ -16,6 +16,9 @@ public:
     ~CommandParser();
 
     std::vector<std::string> parse(const std::string &input);
+
+private:
+    static const std::string SEPARATOR;
 };
 
 

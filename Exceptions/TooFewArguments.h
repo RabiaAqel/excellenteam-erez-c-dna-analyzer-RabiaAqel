@@ -9,30 +9,27 @@
 #include <stdexcept>
 #include <string>
 
-namespace DnaAnalyzerExceptions
+
+class TooFewArguments : public std::runtime_error
 {
+public:
+    TooFewArguments(const std::string &which)
+            : runtime_error(""), m_which(which) {};
 
-    class TooFewArguments : public std::runtime_error
+    ~TooFewArguments() _NOEXCEPT {};
+
+    virtual const char *what() const throw()
     {
-    public:
-        TooFewArguments(const std::string &which)
-                : runtime_error(""), m_which(which) {};
+        std::string message = "";
 
-        ~TooFewArguments() _NOEXCEPT {};
+        message = "DNA Analyzer: Too few arguments for: " + m_which;
 
-        virtual const char *what() const throw()
-        {
-            std::string message = "";
+        return message.c_str();
+    }
 
-            message = "DNA Analyzer: Too few arguments for: " + m_which;
+private:
+    std::string m_which;
+};
 
-            return message.c_str();
-        }
-
-    private:
-        std::string m_which;
-    };
-
-}
 
 #endif //DNA_ANALYZER_TOOFEWARGUMENTS_H

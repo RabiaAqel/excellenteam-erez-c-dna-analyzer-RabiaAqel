@@ -157,26 +157,23 @@ size_t DnaSequence::slice(Nucleotide *slice, size_t from, size_t to)
     return len;
 }
 
-DnaSequence &DnaSequence::paired() const
+void DnaSequence::paired()
 {
-
-    DnaSequence *paired = new DnaSequence(*this);
 
     size_t len = getLength();
 
     for ( int i = 0; i < len; ++i )
     {
         if ( m_sequence[i] == 'A' )
-            paired->m_sequence[i] = 'T';
+            m_sequence[i] = 'T';
         else if ( m_sequence[i] == 'T' )
-            paired->m_sequence[i] = 'A';
+            m_sequence[i] = 'A';
         else if ( m_sequence[i] == 'C' )
-            paired->m_sequence[i] = 'G';
+            m_sequence[i] = 'G';
         else if ( m_sequence[i] == 'G' )
-            paired->m_sequence[i] = 'C';
+            m_sequence[i] = 'C';
     }
 
-    return *paired;
 }
 
 long DnaSequence::find(const std::string &sub, size_t from)

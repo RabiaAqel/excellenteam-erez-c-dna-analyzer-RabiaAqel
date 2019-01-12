@@ -2,35 +2,34 @@
 // Created by Rabia on 28/12/2018.
 //
 
-#include "SaveCommand.h"
+#include "Save.h"
 #include "../../FileIO/FileWriter.h"
 #include <iostream>
 
 
-const std::string SaveCommand::COMMAND_ALIAS = "save";
-const std::string SaveCommand::HELP = "usage: save <seq> [<filename>]";
+const std::string Save::COMMAND_ALIAS = "save";
+const std::string Save::HELP = "usage: save <seq> [<filename>]";
 
-SaveCommand::SaveCommand(std::vector<std::string> args)
+Save::Save(std::vector<std::string> args)
         : m_args(args)
 {
     size_t args_count = m_args.size();
 
     if ( args_count > MAX_ARGS )
-        throw DnaAnalyzerExceptions::TooManyArguments(COMMAND_ALIAS);
+        throw TooManyArguments(COMMAND_ALIAS);
     if ( args_count < MIN_ARGS )
-        throw DnaAnalyzerExceptions::TooFewArguments(COMMAND_ALIAS);
+        throw TooFewArguments(COMMAND_ALIAS);
 }
 
 
-SaveCommand::~SaveCommand() {}
+Save::~Save() {}
 
 
-void SaveCommand::execute(std::shared_ptr<DnaContainer> container)
+void Save::execute(std::shared_ptr<DnaContainer> container)
 {
     FileWriter fileWriter = FileWriter();
 
     std::string sequenceName(m_args[0]);
-    std::cout << container->getSequenceString(sequenceName).c_str() << std::endl;
 
     try
     {
@@ -49,20 +48,20 @@ void SaveCommand::execute(std::shared_ptr<DnaContainer> container)
     }
     catch ( SequenceDoesntExist &e )
     {
-        throw DnaAnalyzerExceptions::e;
+        throw e;
     }
 
-    m_response = "Excuting SaveCommand...";
+    m_response = "Excuting Save...";
 }
 
 
-const std::string SaveCommand::generateName()
+const std::string Save::generateName()
 {
     return m_args[0] + ".rawdna";
 }
 
 
-const std::string &SaveCommand::getResponse() const
+const std::string &Save::getResponse() const
 {
     return m_response;
 }

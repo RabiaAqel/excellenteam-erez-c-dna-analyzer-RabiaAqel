@@ -2,22 +2,22 @@
 // Created by Rabia on 27/12/2018.
 //
 
-#ifndef DNA_ANALYZER_LOADCOMMAND_H
-#define DNA_ANALYZER_LOADCOMMAND_H
+#ifndef DNA_ANALYZER_Load_H
+#define DNA_ANALYZER_Load_H
 
 #include <iostream>
 #include <vector>
 
-#include "CreationCommand.h"
+#include "../Command.h"
 
 
-class LoadCommand : public CreationCommand
+class Load : public Command
 {
 public:
 
-    LoadCommand(std::vector<std::string> args);
+    Load(std::vector<std::string> args);
 
-    ~LoadCommand();
+    ~Load();
 
     void execute(std::shared_ptr<DnaContainer> container);
 
@@ -38,16 +38,16 @@ private:
 };
 
 
-inline const std::string &LoadCommand::getAlias()
+inline const std::string &Load::getAlias()
 {
     return COMMAND_ALIAS;
 }
 
 
-inline const std::string &LoadCommand::help()
+inline const std::string &Load::help()
 {
     return HELP;
 }
 
 
-#endif //DNA_ANALYZER_LOADCOMMAND_H
+#endif //DNA_ANALYZER_Load_H

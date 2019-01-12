@@ -2,20 +2,20 @@
 // Created by Rabia on 31/12/2018.
 //
 
-#ifndef DNA_ANALYZER_NEWCOMMAND_H
-#define DNA_ANALYZER_NEWCOMMAND_H
+#ifndef DNA_ANALYZER_New_H
+#define DNA_ANALYZER_New_H
 
 #include "../Command.h"
 
 
-class NewCommand : public Command
+class New : public Command
 {
 
 public:
 
-    NewCommand(std::vector<std::string> args);
+    New(std::vector<std::string> args);
 
-    ~NewCommand();
+    ~New();
 
     void execute(std::shared_ptr<DnaContainer> container);
 
@@ -36,15 +36,15 @@ private:
 };
 
 
-inline const std::string &NewCommand::getAlias()
+inline const std::string &New::getAlias()
 {
     return COMMAND_ALIAS;
 }
 
 
-inline const std::string &NewCommand::help()
+inline const std::string &New::help()
 {
     return HELP;
 }
 
-#endif //DNA_ANALYZER_NEWCOMMAND_H
+#endif //DNA_ANALYZER_New_H

@@ -2,24 +2,24 @@
 // Created by Rabia on 27/12/2018.
 //
 
-#ifndef DNA_ANALYZER_SAVECOMMAND_H
-#define DNA_ANALYZER_SAVECOMMAND_H
+#ifndef DNA_ANALYZER_DUP_H
+#define DNA_ANALYZER_DUP_H
 
 #include <iostream>
+#include <vector>
 
-#include "ManagementCommand.h"
+#include "../Command.h"
 
-class SaveCommand : public ManagementCommand
+
+class Dup : public Command
 {
 public:
 
-    SaveCommand(std::vector<std::string> args);
+    Dup(std::vector<std::string> args);
 
-    ~SaveCommand();
+    ~Dup();
 
     void execute(std::shared_ptr<DnaContainer> container);
-
-    const std::string generateName();
 
     const std::string &getResponse() const;
 
@@ -28,26 +28,26 @@ public:
     static const std::string &help();
 
 private:
+
     std::vector<std::string> m_args;
-    static const std::string COMMAND_ALIAS;
-    static const std::string HELP;
     static const int MAX_ARGS = 2;
     static const int MIN_ARGS = 1;
     std::string m_response;
-
+    static const std::string COMMAND_ALIAS;
+    static const std::string HELP;
 };
 
 
-inline const std::string &SaveCommand::getAlias()
+inline const std::string &Dup::getAlias()
 {
     return COMMAND_ALIAS;
 }
 
 
-inline const std::string &SaveCommand::help()
+inline const std::string &Dup::help()
 {
     return HELP;
 }
 
 
-#endif //DNA_ANALYZER_SAVECOMMAND_H
+#endif //DNA_ANALYZER_DUP_H

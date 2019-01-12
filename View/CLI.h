@@ -26,10 +26,7 @@ public:
 
 private:
 
-    static const char EXIT_MESSAGE[];
     static const char PROMPT[];
-    static const char EXIT_COMMAND[];
-    static const std::string cyan;
 };
 
 

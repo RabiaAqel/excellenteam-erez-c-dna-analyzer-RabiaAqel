@@ -44,7 +44,7 @@ public:
 
     size_t slice(Nucleotide *slice, size_t from, size_t to);
 
-    DnaSequence &paired() const;
+    void paired();
 
     long find(const std::string &sub, size_t from);
 

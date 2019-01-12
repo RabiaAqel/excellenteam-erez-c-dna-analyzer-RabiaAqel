@@ -18,6 +18,11 @@ public:
     ActiveDnaSequence(const std::string &data,
                       char state);
 
+    ActiveDnaSequence(const ActiveDnaSequence &sequence);
+
+    ActiveDnaSequence(const ActiveDnaSequence &sequence,
+                      const std::string &name);
+
     std::string toString() const;
 
     size_t getID() const;
@@ -25,6 +30,8 @@ public:
     std::string getName() const;
 
     char getState() const;
+
+    void pair();
 
     friend std::ostream &operator<<(std::ostream &os, const ActiveDnaSequence &dna);
 

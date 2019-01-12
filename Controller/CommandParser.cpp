@@ -6,8 +6,10 @@
 #include <boost/algorithm/string.hpp>
 
 
-CommandParser::CommandParser() {}
+const std::string CommandParser::SEPARATOR = " ";
 
+
+CommandParser::CommandParser() {}
 
 CommandParser::~CommandParser() {}
 
@@ -15,7 +17,7 @@ CommandParser::~CommandParser() {}
 std::vector<std::string> CommandParser::parse(const std::string &input)
 {
     std::vector<std::string> result;
-    boost::split(result, input, boost::is_any_of(" "));
+    boost::split(result, input, boost::is_any_of(SEPARATOR));
     return result;
 }
 

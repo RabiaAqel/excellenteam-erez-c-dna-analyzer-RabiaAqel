@@ -24,8 +24,12 @@ public:
 
     std::string getHelp() const;
 
+    std::string getHelp(const std::string &command) const;
+
 private:
-    std::map<std::string, CreatorFunction> m_buttons;
+    Buttons m_buttons;
+    static const std::string HELP_TITLE;
+    static const std::string SEPARATOR;
 };
 
 

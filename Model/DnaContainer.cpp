@@ -58,7 +58,7 @@ findByName(std::string sequenceName)
     if ( exists(sequenceName))
         return m_nameMap[sequenceName];
     else
-        throw DnaAnalyzerExceptions::SequenceDoesntExist(sequenceName);
+        throw SequenceDoesntExist(sequenceName);
 }
 
 
@@ -68,7 +68,7 @@ findByID(size_t id)
     if ( exists(id))
         return m_idMap[id];
     else
-        throw DnaAnalyzerExceptions::SequenceDoesntExist("#" + std::to_string(id));
+        throw SequenceDoesntExist("#" + std::to_string(id));
 
 }
 
@@ -104,13 +104,34 @@ bool DnaContainer::exists(size_t id) const
 }
 
 
-const std::string DnaContainer::getSequenceString(const std::string &sequenceName) const
+const std::string DnaContainer::getSequenceString(const std::string &name) const
 {
 
-    if ( !exists(sequenceName))
-        throw DnaAnalyzerExceptions::SequenceDoesntExist(sequenceName);
+    if ( !exists(name))
+        throw SequenceDoesntExist(name);
     else
-        return (m_nameMap.find(sequenceName)->second)->toString();
+        return (m_nameMap.find(name)->second)->toString();
+
+}
+
+
+void DnaContainer::pair(const std::string &name)
+{
+    if ( !exists(name))
+        throw SequenceDoesntExist(name);
+    else
+        (m_nameMap.find(name)->second)->pair();
+
+}
+
+
+void DnaContainer::pair(size_t id)
+{
+    if ( !exists(id))
+        throw SequenceDoesntExist("#" + std::to_string(id));
+    else
+        (m_idMap.find(id)->second)->pair();
+
 
 }
 

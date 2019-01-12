@@ -10,7 +10,7 @@ size_t ActiveDnaSequence::m_currentID = 0;
 
 
 ActiveDnaSequence::ActiveDnaSequence(const std::string &data,
-                                     const std::string name,
+                                     const std::string &name,
                                      char state)
         : m_dnaSequence(std::shared_ptr<DnaSequence>(new DnaSequence(data))),
           m_id(generateID()),
@@ -23,7 +23,28 @@ ActiveDnaSequence::ActiveDnaSequence(const std::string &data,
         : m_dnaSequence(std::shared_ptr<DnaSequence>(new DnaSequence(data))),
           m_id(generateID()),
           m_name(generateName()),
-          m_state(state) {}
+          m_state('a') {}
+
+
+ActiveDnaSequence::ActiveDnaSequence(const ActiveDnaSequence &sequence)
+        : m_dnaSequence(sequence.m_dnaSequence),
+          m_id(generateID()),
+          m_name(sequence.m_name),
+          m_state('a')
+{
+
+}
+
+
+ActiveDnaSequence::ActiveDnaSequence(const ActiveDnaSequence &sequence,
+                                     const std::string &name)
+        : m_dnaSequence(sequence.m_dnaSequence),
+          m_id(generateID()),
+          m_name(name),
+          m_state('a')
+{
+
+}
 
 
 std::string ActiveDnaSequence::toString() const
@@ -62,6 +83,12 @@ std::ostream &operator<<(std::ostream &os, const ActiveDnaSequence &dna)
     }
 
     return os;
+}
+
+
+void ActiveDnaSequence::pair()
+{
+    m_dnaSequence->paired();
 }
 
 

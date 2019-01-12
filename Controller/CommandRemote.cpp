@@ -6,19 +6,30 @@
 
 #include "CommandRemote.h"
 #include "../Exceptions/InvalidCommand.h"
-#include "../Command/Management/SaveCommand.h"
-#include "../Command/Creation/LoadCommand.h"
-#include "../Command/Control/ListCommand.h"
-#include "../Command/Manipulation/PairCommand.h"
-#include "../Command/Creation/NewCommand.h"
+#include "../Command/Management/Save.h"
+#include "../Command/Creation/Load.h"
+#include "../Command/Control/List.h"
+#include "../Command/Manipulation/Pair.h"
+#include "../Command/Creation/New.h"
+#include "../Command/Creation/Dup.h"
 
 #include <vector>
+
+
+const std::string CommandRemote::HELP_TITLE = "\"DNA Analyzer Commands: \\n\\n\\t\"";
+const std::string CommandRemote::SEPARATOR = "\n\t";
 
 
 template<typename T>
 std::unique_ptr<T> creator(std::vector<std::string> args)
 {
     return std::unique_ptr<T>(new T(args));
+}
+
+template<typename T>
+ButtonConfig configure()
+{
+    return ButtonConfig((CreatorFunction) creator<T>, T::help());
 }
 
 
@@ -33,33 +44,46 @@ CommandRemote::~CommandRemote() {}
 
 void CommandRemote::boot()
 {
-    m_buttons[SaveCommand::getAlias()] = (CreatorFunction) creator<SaveCommand>;
-    m_buttons[LoadCommand::getAlias()] = (CreatorFunction) creator<LoadCommand>;
-    m_buttons[PairCommand::getAlias()] = (CreatorFunction) creator<PairCommand>;
-    m_buttons[NewCommand::getAlias()] = (CreatorFunction) creator<NewCommand>;
-    m_buttons[ListCommand::getAlias()] = (CreatorFunction) creator<ListCommand>;
+    m_buttons[Save::getAlias()] = configure<Save>();
+    m_buttons[Load::getAlias()] = configure<Load>();
+    m_buttons[Pair::getAlias()] = configure<Pair>();
+    m_buttons[New::getAlias()] = configure<New>();
+    m_buttons[List::getAlias()] = configure<List>();
+    m_buttons[Dup::getAlias()] = configure<Dup>();
 }
 
 
-std::unique_ptr<Command> CommandRemote::request(const std::string &COMMAND_ALIAS,
+std::unique_ptr<Command> CommandRemote::request(const std::string &command,
                                                 std::vector<std::string> args)
 {
-    if ( m_buttons.find(COMMAND_ALIAS) != m_buttons.end())
-        return m_buttons.find(COMMAND_ALIAS)->second(args);
+    if ( m_buttons.find(command) != m_buttons.end())
+        return m_buttons.find(command)->second.first(args);
     else
-        throw DnaAnalyzerExceptions::InvalidCommand(COMMAND_ALIAS);
+        throw InvalidCommand(command);
 }
 
 
 std::string CommandRemote::getHelp() const
 {
-    return ("DNA Analyzer Commands: \n\n\t"
-            + NewCommand::help() + "\n\t"
-            + LoadCommand::help() + "\n\t"
-            + PairCommand::help() + "\n\t"
-            + SaveCommand::help() + "\n\t"
-            + ListCommand::help() + "\n\t"
-    );
+    Buttons::const_iterator it;
+
+    std::string helpString(HELP_TITLE);
+
+    for ( it = m_buttons.begin();
+          it != m_buttons.end();
+          helpString += getHelp(it->first) + SEPARATOR );
+
+    return helpString;
+}
+
+
+std::string CommandRemote::getHelp(const std::string &command) const
+{
+
+    if ( m_buttons.find(command) != m_buttons.end())
+        return m_buttons.find(command)->second.second;
+
+    throw InvalidCommand(command);
 }
 
 

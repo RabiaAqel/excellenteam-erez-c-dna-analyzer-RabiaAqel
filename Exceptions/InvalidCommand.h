@@ -8,9 +8,6 @@
 #include <stdexcept>
 #include <string>
 
-namespace DnaAnalyzerExceptions
-{
-
 
     class InvalidCommand : public std::runtime_error
     {
@@ -36,6 +33,5 @@ namespace DnaAnalyzerExceptions
 
     };
 
-}
 
 #endif //DNA_ANALYZER_INVALIDCOMMAND_H

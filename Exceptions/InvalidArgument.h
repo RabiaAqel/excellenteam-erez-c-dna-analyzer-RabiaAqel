@@ -10,30 +10,28 @@
 #include <stdexcept>
 #include <string>
 
-namespace TwoEngine
+
+class InvalidArgument : public std::runtime_error
 {
+public:
+    InvalidArgument(const std::string &which)
+            : runtime_error(""), m_which(which) {};
 
-    class InvalidArgument : public std::runtime_error
+    ~InvalidArgument() _NOEXCEPT {};
+
+    virtual const char *what() const throw()
     {
-    public:
-        InvalidArgument(const std::string &which)
-                : runtime_error(""), m_which(which) {};
+        std::string message = "";
 
-        ~InvalidArgument() _NOEXCEPT {};
+        message = "DNA Analyzer: Invalid argument: " + m_which;
 
-        virtual const char *what() const throw()
-        {
-            std::string message = "";
+        return message.c_str();
+    }
 
-            message = "DNA Analyzer: Invalid argument: " + m_which;
+private:
+    std::string m_which;
 
-            return message.c_str();
-        }
+};
 
-    private:
-        std::string m_which;
 
-    };
-
-}
 #endif //DNA_ANALYZER_INVALIDARGUMENT_H

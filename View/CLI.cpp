@@ -4,9 +4,6 @@
 
 #include "CLI.h"
 
-
-const char CLI::EXIT_MESSAGE[] = "Goodbye.\n";
-const char CLI::EXIT_COMMAND[] = "exit";
 const char CLI::PROMPT[] = "\033[0;36mDNA Analyzer > \033[0m";
 
 
@@ -33,7 +30,8 @@ void CLI::renderError(std::string error)
 std::string CLI::prompt()
 {
     std::string line;
-    std::cout << PROMPT;
-    std::getline(std::cin, line);
+
+    for ( line; std::cout << PROMPT && std::getline(std::cin, line) && line.empty(); );
+
     return line;
 }

@@ -35,10 +35,13 @@ public:
     std::string getList() const;
 
     bool exists(const std::string &sequenceName) const;
-
     bool exists(size_t id) const;
 
     const std::string getSequenceString(const std::string &sequenceName) const;
+
+    void pair(const std::string &name);
+
+    void pair(size_t id);
 
 
 private:

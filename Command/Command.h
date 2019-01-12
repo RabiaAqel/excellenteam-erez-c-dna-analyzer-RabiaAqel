@@ -9,8 +9,13 @@
 #include <vector>
 
 #include "../Model/DnaContainer.h"
+#include "../Exceptions/InvalidArgument.h"
+#include "../Exceptions/InvalidCommand.h"
+#include "../Exceptions/TooManyArguments.h"
+#include "../Exceptions/TooFewArguments.h"
+#include "../Exceptions/SequenceDoesntExist.h"
+#include "../Exceptions/RawDnaNotFound.h"
 
-using namespace DnaAnalyzerExceptions;
 
 class Command
 {

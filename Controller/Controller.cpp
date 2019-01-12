@@ -40,45 +40,43 @@ void Controller::start()
 
         line = m_ui->prompt();
 
-        if ( !line.empty())
+        if ( line.find(EXIT) != -1 )
+            break;
+
+        std::vector<std::string> parsed = m_parser->parse(line);
+        commandName = parsed[0];
+        parsed.erase(parsed.begin());
+
+        if ( commandName == HELP )
+        {
+            if ( parsed.size() == 0 )
+                m_ui->render(m_remote->getHelp());
+            else
+                m_ui->render(m_remote->getHelp(parsed[0]));
+            continue;
+        }
+
+        try
         {
 
-            std::vector<std::string> parsed = m_parser->parse(line);
+            std::unique_ptr<Command> responseCmd =
+                    m_remote->request(commandName, parsed);
 
-            if ( line.find(EXIT) != -1 )
-                break;
+            responseCmd->execute(m_container);
 
-            if ( line.find(HELP) != -1 )
-                m_ui->render(m_remote->getHelp());
+            response = responseCmd->getResponse();
 
-            else
-            {
-
-                try
-                {
-
-                    commandName = parsed.front();
-
-                    parsed.erase(parsed.begin());
-
-                    std::unique_ptr<Command> responseCmd =
-                            m_remote->request(commandName, parsed);
-
-                    responseCmd->execute(m_container);
-                    response = responseCmd->getResponse();
-
-
-                    m_ui->render(response);
-                }
-                catch ( const std::exception &e )
-                {
-                    response = e.what();
-                    m_ui->renderError(response);
-
-                }
-            }
+            m_ui->render(response);
         }
+        catch ( const std::exception &e )
+        {
+            response = e.what();
+
+            m_ui->renderError(response);
+        }
+
     } while ( true );
+
     return;
 }
 
