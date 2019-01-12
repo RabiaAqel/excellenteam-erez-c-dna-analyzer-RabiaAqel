@@ -5,6 +5,8 @@
 #ifndef DNA_ANALYZER_CONTROLLER_H
 #define DNA_ANALYZER_CONTROLLER_H
 
+#include <map>
+
 #include "Remote.h"
 #include "../View/UI.h"
 #include "CommandParser.h"
@@ -14,14 +16,13 @@
 class Controller
 {
 public:
-    Controller (const std::shared_ptr<Remote> remote,
-                const std::shared_ptr<UI> ui,
-                const std::shared_ptr<CommandParser> parser);
-    ~Controller ();
+    Controller(const std::shared_ptr<Remote> remote,
+               const std::shared_ptr<UI> ui,
+               const std::shared_ptr<CommandParser> parser);
 
-    void start ();
+    ~Controller();
 
-    void help ();
+    void start();
 
 
 private:
@@ -31,6 +32,7 @@ private:
     std::shared_ptr<DnaContainer> m_container;
     static const std::string EXIT;
     static const std::string HELP;
+
 };
 
 

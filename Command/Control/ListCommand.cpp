@@ -8,24 +8,26 @@
 #include "ListCommand.h"
 
 
-const std::string ListCommand::COMMAND_NAME = "list";
-const std::string ListCommand::HELP = "list";
+const std::string ListCommand::COMMAND_ALIAS = "list";
+const std::string ListCommand::HELP = "usage: list";
 
 
-ListCommand::ListCommand (std::vector<std::string> args)
-        : command_alias (COMMAND_NAME), m_args (args) {}
+ListCommand::ListCommand(std::vector<std::string> args)
+        : m_args(args) {}
 
 
-ListCommand::~ListCommand () {}
+ListCommand::~ListCommand() {}
 
-void ListCommand::execute (std::shared_ptr<DnaContainer> container)
+
+void ListCommand::execute(std::shared_ptr<DnaContainer> container)
 {
-    std::string list = container->getList ();
+    std::string list = container->getList();
 
     m_response = (list == "") ? "DNA Analyzer: No active sequences" : list;
 }
 
-const std::string &ListCommand::getResponse () const
+
+const std::string &ListCommand::getResponse() const
 {
     return m_response;
 }

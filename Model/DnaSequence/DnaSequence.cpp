@@ -8,23 +8,23 @@ const std::string Nucleotide::INVALID_MSG = "Error: Invalid Nucleotide/s:"
                                             "" ", Cannot construct sequence.";
 
 
-bool DnaSequence::operator== (const DnaSequence &other)
+bool DnaSequence::operator==(const DnaSequence &other)
 {
     bool res = true;
 
-    if ( getLength () == other.getLength ())
-        for ( int i = 0; i < getLength (); ++i )
-            if ( m_sequence[i].getNucleotide () != other.m_sequence[i].getNucleotide ())
+    if ( getLength() == other.getLength())
+        for ( int i = 0; i < getLength(); ++i )
+            if ( m_sequence[i].getNucleotide() != other.m_sequence[i].getNucleotide())
                 res = false;
 
     return res;
 }
 
 
-DnaSequence::DnaSequence (const DnaSequence &other)
+DnaSequence::DnaSequence(const DnaSequence &other)
 {
 
-    size_t len = other.getLength ();
+    size_t len = other.getLength();
 
     m_length = len;
 
@@ -32,7 +32,7 @@ DnaSequence::DnaSequence (const DnaSequence &other)
     try
     {
         m_sequence = new Nucleotide[len];
-        copySequenceFromNucleotides (other.m_sequence, len);
+        copySequenceFromNucleotides(other.m_sequence, len);
     }
     catch ( std::invalid_argument &exception )
     {
@@ -51,25 +51,25 @@ DnaSequence::DnaSequence (const DnaSequence &other)
 }
 
 
-std::ostream &operator<< (std::ostream &os, const DnaSequence &dna)
+std::ostream &operator<<(std::ostream &os, const DnaSequence &dna)
 {
     os << "DNA Sequence: ";
 
-    os << dna.toString ();
+    os << dna.toString();
 
     return os;
 }
 
 
-DnaSequence::DnaSequence (const char *sequence)
+DnaSequence::DnaSequence(const char *sequence)
 {
-    size_t len = strlen (sequence);
+    size_t len = strlen(sequence);
     m_length = len;
 
     try
     {
         m_sequence = new Nucleotide[len];
-        copySequenceFromChars (sequence, len);
+        copySequenceFromChars(sequence, len);
     }
     catch ( std::invalid_argument &exception )
     {
@@ -80,15 +80,15 @@ DnaSequence::DnaSequence (const char *sequence)
 }
 
 
-DnaSequence::DnaSequence (const std::string &sequence)
+DnaSequence::DnaSequence(const std::string &sequence)
 {
-    size_t len = sequence.length ();
+    size_t len = sequence.length();
     m_sequence = new Nucleotide[len];
     m_length = len;
 
     try
     {
-        copySequenceFromChars (sequence.c_str (), len);
+        copySequenceFromChars(sequence.c_str(), len);
     }
     catch ( std::invalid_argument &exception )
     {
@@ -99,14 +99,14 @@ DnaSequence::DnaSequence (const std::string &sequence)
 }
 
 
-DnaSequence &DnaSequence::operator= (const DnaSequence &other)
+DnaSequence &DnaSequence::operator=(const DnaSequence &other)
 {
     if ( this == &other )
         return *this;
 
     delete[] m_sequence;
 
-    size_t len = other.getLength ();
+    size_t len = other.getLength();
 
     for ( int i = 0; i < len; ++i )
         other.m_sequence[i] = m_sequence[i];
@@ -117,13 +117,13 @@ DnaSequence &DnaSequence::operator= (const DnaSequence &other)
 }
 
 
-DnaSequence &DnaSequence::operator= (const char *const sequence)
+DnaSequence &DnaSequence::operator=(const char *const sequence)
 {
     delete[] m_sequence;
 
-    size_t len = strlen (sequence);
+    size_t len = strlen(sequence);
 
-    copySequenceFromChars (sequence, len);
+    copySequenceFromChars(sequence, len);
 
     m_length = len;
 
@@ -147,22 +147,22 @@ void DnaSequence::copySequenceFromNucleotides
 }
 
 
-size_t DnaSequence::slice (Nucleotide *slice, size_t from, size_t to)
+size_t DnaSequence::slice(Nucleotide *slice, size_t from, size_t to)
 {
     size_t len = to - from - 1;
 
-    for ( int i = 0; i < len; ++i )
+    for ( size_t i = 0; i < len; ++i )
         slice[i] = m_sequence[from + i + 1];
 
     return len;
 }
 
-DnaSequence &DnaSequence::paired () const
+DnaSequence &DnaSequence::paired() const
 {
 
-    DnaSequence *paired = new DnaSequence (*this);
+    DnaSequence *paired = new DnaSequence(*this);
 
-    size_t len = getLength ();
+    size_t len = getLength();
 
     for ( int i = 0; i < len; ++i )
     {
@@ -179,34 +179,32 @@ DnaSequence &DnaSequence::paired () const
     return *paired;
 }
 
-long DnaSequence::find (const std::string &sub, size_t from)
+long DnaSequence::find(const std::string &sub, size_t from)
 {
-    size_t sequenceLen = getLength ();
-    size_t subLen = sub.length ();
+    size_t sequenceLen = getLength();
+    size_t subLen = sub.length();
 
     int isFound = -1;
 
-    for ( int i = from; i < sequenceLen - subLen; ++i )
+    for ( size_t i = from; i < sequenceLen - subLen; ++i )
     {
-        for ( int j = 0; j < subLen; ++j )
+        for ( size_t j = 0; j < subLen; ++j )
             if ( m_sequence[i + j] != sub[j] )
             {
                 break;
             }
     }
 
-
-    std::cout << isFound;
-
+    return isFound;
 }
 
 
-const std::string DnaSequence::toString () const
+const std::string DnaSequence::toString() const
 {
     std::string sequenceString = "";
 
-    for ( int i = 0; i < getLength (); ++i )
-        sequenceString += m_sequence[i].getNucleotide ();
+    for ( int i = 0; i < getLength(); ++i )
+        sequenceString += m_sequence[i].getNucleotide();
 
     return sequenceString;
 }

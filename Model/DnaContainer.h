@@ -8,40 +8,43 @@
 #include <map>
 #include <iostream>
 
-#include "DnaSequence/DnaSequence.h"
-#include "../Exceptions/SequenceDoesntExistException.h"
+#include "ActiveDnaSequence.h"
+#include "../Exceptions/SequenceDoesntExist.h"
 
 class DnaContainer
 {
 public:
 
-    DnaContainer ();
-    ~DnaContainer () {};
+    DnaContainer();
+
+    ~DnaContainer() {};
 
 
-    bool insert (std::string sequenceName, const std::string &data);
+    size_t insert(std::string sequenceName,
+                  const std::string &data,
+                  const char state);
 
-    bool insert (const std::string &data);
+    size_t insert(const std::string &data,
+                  const char state);
 
-    std::shared_ptr<DnaSequence> findByName (std::string);
+    std::shared_ptr<ActiveDnaSequence> findByName(std::string);
 
-    std::shared_ptr<DnaSequence> findByID (size_t);
+    std::shared_ptr<ActiveDnaSequence> findByID(size_t);
 
-    static size_t generateID ();
 
-    static std::string generateName ();
+    std::string getList() const;
 
-    std::string getList () const;
+    bool exists(const std::string &sequenceName) const;
 
-    bool exists (const std::string &sequenceName) const;
+    bool exists(size_t id) const;
 
-    const std::string getSequenceString (const std::string &sequenceName) const;
+    const std::string getSequenceString(const std::string &sequenceName) const;
 
 
 private:
 
-    std::map<std::string, std::shared_ptr<DnaSequence> > m_nameMap;
-    std::map<size_t, std::shared_ptr<DnaSequence> > m_idMap;
+    std::map<std::string, std::shared_ptr<ActiveDnaSequence> > m_nameMap;
+    std::map<size_t, std::shared_ptr<ActiveDnaSequence> > m_idMap;
 
     static size_t m_currentID;
 

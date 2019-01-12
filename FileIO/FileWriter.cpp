@@ -6,22 +6,22 @@
 #include <cstdio>
 
 
-FileWriter::FileWriter () {}
+FileWriter::FileWriter() {}
 
 
-FileWriter::~FileWriter () {}
+FileWriter::~FileWriter() {}
 
 
-void FileWriter::writeFile (char *fileName, char data[])
+void FileWriter::writeFile(char *fileName, char data[])
 {
-    FILE *file = fopen (fileName, "w+");
-    int return_val = fputs (data, file);
+    FILE *file = fopen(fileName, "w+");
+    int return_val = fputs(data, file);
 
     if ( return_val >= 0 )
-        printf ("Success");
+        printf("Success");
     else
-        printf ("failed");
+        printf("failed");
 
-    fclose (file);
+    fclose(file);
     return;
 }

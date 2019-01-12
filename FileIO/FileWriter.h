@@ -9,10 +9,11 @@
 class FileWriter
 {
 public:
-    FileWriter ();
-    ~FileWriter ();
+    FileWriter();
 
-    void writeFile (char *fileName, char *data);
+    ~FileWriter();
+
+    void writeFile(char *fileName, char *data);
 };
 
 

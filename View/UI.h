@@ -11,13 +11,15 @@ class UI
 {
 
 public:
-    UI () {};
-    virtual ~UI () {};
+    UI() {};
 
-    virtual void render (std::string out) = 0;
-    virtual void renderError (std::string error) = 0;
+    virtual ~UI() {};
 
-    virtual std::string prompt () = 0;
+    virtual void render(std::string out) = 0;
+
+    virtual void renderError(std::string error) = 0;
+
+    virtual std::string prompt() = 0;
 
 };
 

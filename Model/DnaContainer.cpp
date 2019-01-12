@@ -1,92 +1,116 @@
 
+#include <sstream>
+
 #include "DnaContainer.h"
 
 
 size_t DnaContainer::m_currentID = 0;
 
-DnaContainer::DnaContainer ()
+
+DnaContainer::DnaContainer()
 {
 }
 
-bool DnaContainer::
-insert (std::string sequenceName,
-        const std::string& data)
+
+size_t DnaContainer::
+insert(std::string name,
+       const std::string &data,
+       char state)
 {
-    std::shared_ptr<DnaSequence> dnaSequence(new DnaSequence(data));
-    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (sequenceName, dnaSequence));
-    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), dnaSequence));
+    std::shared_ptr<ActiveDnaSequence>
+            activeDna(new ActiveDnaSequence(data, name, state));
+
+    m_nameMap.insert(std::pair<std::string,
+            std::shared_ptr<ActiveDnaSequence> >
+                             (name, activeDna));
+
+    m_idMap.insert(std::pair<size_t,
+            std::shared_ptr<ActiveDnaSequence> >
+                           (activeDna->getID(), activeDna));
+
+    return activeDna->getID();
 }
 
 
-bool DnaContainer::
-insert (const std::string& data)
+size_t DnaContainer::
+insert(const std::string &data,
+       const char state)
 {
-    std::shared_ptr<DnaSequence> dnaSequence(new DnaSequence(data));
-    m_nameMap.insert (std::pair<std::string, std::shared_ptr<DnaSequence> > (generateName (), dnaSequence));
-    m_idMap.insert (std::pair<size_t, std::shared_ptr<DnaSequence> > (generateID (), dnaSequence));
+
+    std::shared_ptr<ActiveDnaSequence>
+            activeDna(new ActiveDnaSequence(data, state));
+
+    m_nameMap.insert(std::pair<std::string,
+            std::shared_ptr<ActiveDnaSequence> >
+                             (activeDna->getName(), activeDna));
+
+    m_idMap.insert(std::pair<size_t,
+            std::shared_ptr<ActiveDnaSequence> >
+                           (activeDna->getID(), activeDna));
+
+    return activeDna->getID();
 }
 
 
-std::shared_ptr<DnaSequence> DnaContainer::
-findByName (std::string sequenceName)
+std::shared_ptr<ActiveDnaSequence> DnaContainer::
+findByName(std::string sequenceName)
 {
-    if (m_nameMap.find (sequenceName) != m_nameMap.end ())
+    if ( exists(sequenceName))
         return m_nameMap[sequenceName];
+    else
+        throw DnaAnalyzerExceptions::SequenceDoesntExist(sequenceName);
 }
 
 
-std::shared_ptr<DnaSequence> DnaContainer::
-findByID (size_t id)
+std::shared_ptr<ActiveDnaSequence> DnaContainer::
+findByID(size_t id)
 {
-    if (m_idMap.find (id) != m_idMap.end ())
+    if ( exists(id))
         return m_idMap[id];
+    else
+        throw DnaAnalyzerExceptions::SequenceDoesntExist("#" + std::to_string(id));
+
 }
 
 
-size_t DnaContainer::generateID ()
+std::string DnaContainer::getList() const
 {
-    return ++m_currentID;
-}
+    std::stringstream ss;
+    typedef std::map<size_t, std::shared_ptr<ActiveDnaSequence> > idIterator;
+    typedef std::map<std::string, std::shared_ptr<ActiveDnaSequence> > nameIterator;
 
+    idIterator::const_iterator it = m_idMap.begin();
+    nameIterator::const_iterator it2 = m_nameMap.begin();
 
-std::string DnaContainer::generateName ()
-{
-    return "seq" + std::to_string (m_currentID + 1);
-}
-
-
-std::string DnaContainer::getList () const
-{
-    std::string list = "";
-    typedef std::map<size_t, std::shared_ptr<DnaSequence> > idIterator;
-    typedef std::map<std::string, std::shared_ptr<DnaSequence> > nameIterator;
-
-    idIterator::const_iterator it = m_idMap.begin ();
-    nameIterator::const_iterator it2 = m_nameMap.begin ();
-
-    while (it != m_idMap.end () && it2 != m_nameMap.end ())
+    while ( it != m_idMap.end() && it2 != m_nameMap.end())
     {
-        list += "[" + std::to_string (it->first) + "] " + it2->first + "\n";
+        ss << *it->second;
         ++it;
         ++it2;
     }
 
-    return list;
+    return ss.str();
 }
 
 
-bool DnaContainer::exists(const std::string& sequenceName) const
+bool DnaContainer::exists(const std::string &sequenceName) const
 {
     return m_nameMap.find(sequenceName) != m_nameMap.end();
 }
 
+bool DnaContainer::exists(size_t id) const
+{
+    return m_idMap.find(id) != m_idMap.end();
+}
 
-const std::string DnaContainer::getSequenceString(const std::string& sequenceName) const
+
+const std::string DnaContainer::getSequenceString(const std::string &sequenceName) const
 {
 
-    if (!exists (sequenceName))
-        throw SequenceDoesntExist();
+    if ( !exists(sequenceName))
+        throw DnaAnalyzerExceptions::SequenceDoesntExist(sequenceName);
     else
-        return (m_nameMap.find(sequenceName)->second)->toString ();
+        return (m_nameMap.find(sequenceName)->second)->toString();
 
 }
+

@@ -14,11 +14,14 @@ class CLI : public UI
 {
 public:
 
-    CLI ();
-    ~CLI ();
+    CLI();
 
-    void render (std::string out);
-    void renderError (std::string error);
+    ~CLI();
+
+    void render(std::string out);
+
+    void renderError(std::string error);
+
     std::string prompt();
 
 private:

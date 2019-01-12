@@ -5,6 +5,7 @@
 #ifndef DNA_ANALYZER_COMMANDCONTROLLER_H
 #define DNA_ANALYZER_COMMANDCONTROLLER_H
 
+#include <map>
 #include "Remote.h"
 
 
@@ -12,13 +13,19 @@ class CommandRemote : public Remote
 {
 public:
 
-    CommandRemote ();
-    ~CommandRemote ();
+    CommandRemote();
 
-    void boot ();
+    ~CommandRemote();
 
-    std::unique_ptr<Command> request (const std::string &command,
-                                      std::vector<std::string> args);
+    std::unique_ptr<Command> request(const std::string &command,
+                                     std::vector<std::string> args);
+
+    void boot();
+
+    std::string getHelp() const;
+
+private:
+    std::map<std::string, CreatorFunction> m_buttons;
 };
 
 

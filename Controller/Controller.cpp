@@ -10,22 +10,26 @@
 #include "Controller.h"
 
 
-Controller::Controller (const std::shared_ptr<Remote> remote,
-                        const std::shared_ptr<UI> ui,
-                        const std::shared_ptr<CommandParser> parser)
+const std::string Controller::EXIT = "quit";
+const std::string Controller::HELP = "help";
+
+
+Controller::Controller(const std::shared_ptr<Remote> remote,
+                       const std::shared_ptr<UI> ui,
+                       const std::shared_ptr<CommandParser> parser)
 {
     m_remote = remote;
     m_ui = ui;
     m_parser = parser;
-    m_container = std::shared_ptr<DnaContainer> (new DnaContainer);
+    m_container = std::shared_ptr<DnaContainer>(new DnaContainer);
 
 }
 
 
-Controller::~Controller () {}
+Controller::~Controller() {}
 
 
-void Controller::start ()
+void Controller::start()
 {
     // TODO: Split code into smaller responisbilities
     std::string line;
@@ -34,39 +38,43 @@ void Controller::start ()
     do
     {
 
-        line = m_ui->prompt ();
+        line = m_ui->prompt();
 
-        std::vector<std::string> parsed = m_parser->parse (line);
-
-
-        if ( !line.empty ())
+        if ( !line.empty())
         {
 
-            if ( line.find ("exit") != -1 )
+            std::vector<std::string> parsed = m_parser->parse(line);
+
+            if ( line.find(EXIT) != -1 )
                 break;
+
+            if ( line.find(HELP) != -1 )
+                m_ui->render(m_remote->getHelp());
+
             else
             {
 
                 try
                 {
 
-                    commandName = parsed.front ();
+                    commandName = parsed.front();
 
-                    parsed.erase (parsed.begin ());
+                    parsed.erase(parsed.begin());
 
                     std::unique_ptr<Command> responseCmd =
-                            m_remote->request (commandName, parsed);
+                            m_remote->request(commandName, parsed);
 
-                    responseCmd->execute (m_container);
-                    response = responseCmd->getResponse ();
+                    responseCmd->execute(m_container);
+                    response = responseCmd->getResponse();
 
 
-                    m_ui->render (response);
+                    m_ui->render(response);
                 }
-                catch ( std::exception &e )
+                catch ( const std::exception &e )
                 {
-                    response = e.what ();
-                    m_ui->renderError (response);
+                    response = e.what();
+                    m_ui->renderError(response);
+
                 }
             }
         }
@@ -74,8 +82,3 @@ void Controller::start ()
     return;
 }
 
-
-void Controller::help ()
-{
-
-}

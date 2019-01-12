@@ -2,24 +2,24 @@
 // Created by Rabia on 27/12/2018.
 //
 
-#ifndef DNA_ANALYZER_SAVECOMMAND_H
-#define DNA_ANALYZER_SAVECOMMAND_H
+#ifndef DNA_ANALYZER_LOADCOMMAND_H
+#define DNA_ANALYZER_LOADCOMMAND_H
 
 #include <iostream>
+#include <vector>
 
-#include "ManagementCommand.h"
+#include "CreationCommand.h"
 
-class SaveCommand : public ManagementCommand
+
+class LoadCommand : public CreationCommand
 {
 public:
 
-    SaveCommand(std::vector<std::string> args);
+    LoadCommand(std::vector<std::string> args);
 
-    ~SaveCommand();
+    ~LoadCommand();
 
     void execute(std::shared_ptr<DnaContainer> container);
-
-    const std::string generateName();
 
     const std::string &getResponse() const;
 
@@ -28,26 +28,26 @@ public:
     static const std::string &help();
 
 private:
+
     std::vector<std::string> m_args;
-    static const std::string COMMAND_ALIAS;
-    static const std::string HELP;
     static const int MAX_ARGS = 2;
     static const int MIN_ARGS = 1;
     std::string m_response;
-
+    static const std::string COMMAND_ALIAS;
+    static const std::string HELP;
 };
 
 
-inline const std::string &SaveCommand::getAlias()
+inline const std::string &LoadCommand::getAlias()
 {
     return COMMAND_ALIAS;
 }
 
 
-inline const std::string &SaveCommand::help()
+inline const std::string &LoadCommand::help()
 {
     return HELP;
 }
 
 
-#endif //DNA_ANALYZER_SAVECOMMAND_H
+#endif //DNA_ANALYZER_LOADCOMMAND_H

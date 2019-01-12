@@ -10,10 +10,11 @@ class FileReader
 {
 public:
 
-    FileReader ();
-    ~FileReader ();
+    FileReader();
 
-    char *readFile (char *fileName);
+    ~FileReader();
+
+    std::string readFile(char *fileName);
 
 };
 

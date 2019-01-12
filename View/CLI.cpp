@@ -7,33 +7,33 @@
 
 const char CLI::EXIT_MESSAGE[] = "Goodbye.\n";
 const char CLI::EXIT_COMMAND[] = "exit";
-const char CLI::PROMPT[] = "\033[0;36mDNA Analyzer >>> \033[0m";
+const char CLI::PROMPT[] = "\033[0;36mDNA Analyzer > \033[0m";
 
 
-CLI::CLI () {}
+CLI::CLI() {}
 
 
-CLI::~CLI () {}
+CLI::~CLI() {}
 
 
-void CLI::render (std::string out)
+void CLI::render(std::string out)
 {
     std::cout << out << std::endl;
     return;
 }
 
 
-void CLI::renderError (std::string error)
+void CLI::renderError(std::string error)
 {
-    std::cerr << error << std::endl;
+    std::cerr << "\033[1;31m" << error << "\033[0m" << std::endl;
     return;
 }
 
 
-std::string CLI::prompt ()
+std::string CLI::prompt()
 {
     std::string line;
     std::cout << PROMPT;
-    std::getline (std::cin, line);
+    std::getline(std::cin, line);
     return line;
 }

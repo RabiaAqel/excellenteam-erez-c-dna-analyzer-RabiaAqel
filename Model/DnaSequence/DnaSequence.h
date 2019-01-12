@@ -15,33 +15,38 @@ class DnaSequence
 
 public:
 
-    explicit DnaSequence (const char *sequence);
-    explicit DnaSequence (const std::string &sequence);
-    DnaSequence (const DnaSequence &other);
-    ~DnaSequence ();
+    explicit DnaSequence(const char *sequence);
 
-    DnaSequence &operator= (const char *const sequence);
-    DnaSequence &operator= (const std::string &sequence);
-    DnaSequence &operator= (const DnaSequence &other);
+    explicit DnaSequence(const std::string &sequence);
 
-    friend std::ostream &operator<< (std::ostream &os, const DnaSequence &dna);
+    DnaSequence(const DnaSequence &other);
 
-    bool operator== (const DnaSequence &other);
+    ~DnaSequence();
 
-    bool operator!= (const DnaSequence &other);
+    DnaSequence &operator=(const char *const sequence);
 
-    const Nucleotide operator[] (int index) const; // const should not return ref
-    Nucleotide &operator[] (int index); // not const should return ref to change - (const char doesnt make sense)
+    DnaSequence &operator=(const std::string &sequence);
 
-    const std::string toString () const;
+    DnaSequence &operator=(const DnaSequence &other);
 
-    size_t getLength () const;
+    friend std::ostream &operator<<(std::ostream &os, const DnaSequence &dna);
 
-    size_t slice (Nucleotide *slice, size_t from, size_t to);
+    bool operator==(const DnaSequence &other);
 
-    DnaSequence &paired () const;
+    bool operator!=(const DnaSequence &other);
 
-    long find (const std::string &sub, size_t from);
+    const Nucleotide operator[](int index) const; // const should not return ref
+    Nucleotide &operator[](int index); // not const should return ref to change - (const char doesnt make sense)
+
+    const std::string toString() const;
+
+    size_t getLength() const;
+
+    size_t slice(Nucleotide *slice, size_t from, size_t to);
+
+    DnaSequence &paired() const;
+
+    long find(const std::string &sub, size_t from);
 
 private:
 
@@ -56,19 +61,19 @@ private:
 
 };
 
-inline DnaSequence::~DnaSequence ()
+inline DnaSequence::~DnaSequence()
 {
     delete[] m_sequence;
 }
 
 
-inline bool DnaSequence::operator!= (const DnaSequence &other)
+inline bool DnaSequence::operator!=(const DnaSequence &other)
 {
     return !(*this == other);
 }
 
 
-inline Nucleotide &DnaSequence::operator[] (int index)
+inline Nucleotide &DnaSequence::operator[](int index)
 {
     return m_sequence[index];
 }
@@ -78,21 +83,21 @@ inline Nucleotide &DnaSequence::operator[] (int index)
 // wont change it actually.
 // using const char is recommended to produce
 // compilation error (protects users)
-inline const Nucleotide DnaSequence::operator[] (int index) const
+inline const Nucleotide DnaSequence::operator[](int index) const
 {
     return m_sequence[index];
 }
 
 
-inline size_t DnaSequence::getLength () const
+inline size_t DnaSequence::getLength() const
 {
     return m_length;
 }
 
 
-inline DnaSequence &DnaSequence::operator= (const std::string &sequence)
+inline DnaSequence &DnaSequence::operator=(const std::string &sequence)
 {
-    *this = sequence.c_str ();
+    *this = sequence.c_str();
     return *this;
 }
 

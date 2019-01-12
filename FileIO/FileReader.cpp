@@ -6,35 +6,39 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 #include "FileReader.h"
 
 
-FileReader::FileReader () {}
+FileReader::FileReader() {}
 
 
-FileReader::~FileReader () {}
+FileReader::~FileReader() {}
 
 
-char *FileReader::readFile (char *fileName)
+std::string FileReader::readFile(char *fileName)
 {
     char source[MAXBUFLEN + 1];
-    FILE *fp = fopen (fileName, "r");
+
+    FILE *fp = fopen(fileName, "r");
+
     if ( fp != NULL )
     {
-        size_t newLen = fread (source, sizeof (char), MAXBUFLEN, fp);
+        size_t newLen = fread(source, sizeof(char), MAXBUFLEN, fp);
         if ( newLen == 0 )
         {
-            fputs ("Error reading file", stderr);
+            fputs("Error reading file", stderr);
         }
         else
         {
             source[newLen] = '\0';
         }
 
-        fclose (fp);
+        fclose(fp);
     }
-    return source;
+
+    return std::string(source);
 }
 
 
