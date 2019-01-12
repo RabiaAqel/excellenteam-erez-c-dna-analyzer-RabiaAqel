@@ -16,7 +16,7 @@
 #include <vector>
 
 
-const std::string CommandRemote::HELP_TITLE = "\"DNA Analyzer Commands: \\n\\n\\t\"";
+const std::string CommandRemote::HELP_TITLE = "DNA Analyzer Commands: \n\n\t";
 const std::string CommandRemote::SEPARATOR = "\n\t";
 
 
@@ -71,7 +71,7 @@ std::string CommandRemote::getHelp() const
 
     for ( it = m_buttons.begin();
           it != m_buttons.end();
-          helpString += getHelp(it->first) + SEPARATOR );
+          helpString += getHelp(it->first) + SEPARATOR, ++it );
 
     return helpString;
 }
